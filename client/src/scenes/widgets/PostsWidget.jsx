@@ -2,14 +2,16 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts, setUsers } from "state";
 import PostWidget from "./PostWidget";
+import { config } from "../../config";
 
-const PostsWidget = ({ userId, isProfile = false }) => {
+const SERVER_URL_ENDPOINT = `http://${config.host}:${config.port}`
+const PostsWidget = ({ userId, socket, isProfile = false }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
 
   const getUsers = async () => {
-    const response = await fetch("http://localhost:3001/users", {
+    const response = await fetch(SERVER_URL_ENDPOINT+"/users", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -18,7 +20,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   };
 
   const getPosts = async () => {
-    const response = await fetch("http://localhost:3001/posts", {
+    const response = await fetch(SERVER_URL_ENDPOINT+"/posts", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -28,7 +30,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   const getUserPosts = async () => {
     const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts`,
+      `${SERVER_URL_ENDPOINT}/${userId}/posts`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -73,6 +75,8 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             userPicturePath={userPicturePath}
             likes={likes}
             comments={comments}
+            getPosts={getPosts}
+            socket={socket}
           />
         )
       )}
