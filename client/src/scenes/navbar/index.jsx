@@ -9,6 +9,7 @@ import {
   FormControl,
   useTheme,
   useMediaQuery,
+  Popover,
 } from "@mui/material";
 import {
   Search,
@@ -26,6 +27,16 @@ import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
 
 const Navbar = () => {
+  const [anchorE1, setAnchorE1] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorE1(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorE1(null);
+  };
+
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -159,7 +170,25 @@ const Navbar = () => {
               )}
             </IconButton>
             <Message sx={{ fontSize: "25px" }} />
-            <Notifications sx={{ fontSize: "25px" }} />
+            <Notifications
+              onClick={(e) => handleClick(e)}
+              sx={{ fontSize: "25px" }}
+            />
+            <Popover
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorE1)}
+              anchorEl={anchorE1}
+              onClose={handleClose}
+            >
+              <Typography sx={{ p: 2 }}>Content</Typography>
+            </Popover>
             <Help sx={{ fontSize: "25px" }} />
             <FormControl variant="standard" value={fullName}>
               <Select
