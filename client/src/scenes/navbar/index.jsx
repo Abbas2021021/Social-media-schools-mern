@@ -56,7 +56,7 @@ const Navbar = () => {
             },
           }}
         >
-          Nixor Pulse
+          Social Media
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween
