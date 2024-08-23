@@ -16,10 +16,16 @@ import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 
+const allowedDomain = 'gmail.com';
+
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
+  email: yup.string().email("invalid email").test('is-valid-domain', `Email must be a @${allowedDomain} email`, (value) => {
+    if(!value) return false;
+    const domain = value.split('@')[1];
+    return domain === allowedDomain;
+  }).required("required"),
   password: yup.string().required("required"),
   location: yup.string().required("required"),
   occupation: yup.string().required("required"),

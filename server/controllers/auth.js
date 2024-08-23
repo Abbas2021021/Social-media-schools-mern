@@ -18,6 +18,14 @@ export const register = async (req, res) => {
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
+    
+    // server side check to only allow specific domain
+    const allowedDomain = 'gmail.com'
+    const emailDomain = email.split('@')[1];
+
+    if(emailDomain !== allowedDomain) {
+      return res.status(400).json({message: 'Registration is restricted to @${allowedDomain}'});
+    }
 
     const newUser = new User({
       firstName,

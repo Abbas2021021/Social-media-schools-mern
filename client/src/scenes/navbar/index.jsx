@@ -70,6 +70,7 @@ const Navbar = ({ socket }) => {
         <Divider />
         <Typography sx={{ p: 2 }} color={main}>
           {userName}
+          {" "}
           {action} your post
         </Typography>
       </>
