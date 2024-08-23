@@ -47,7 +47,7 @@ const PostsWidget = ({ userId, socket, isProfile = false }) => {
       getPosts();
       getUsers();
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [userId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
