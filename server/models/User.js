@@ -33,6 +33,8 @@ const UserSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
     location: String,
     occupation: String,
     viewedProfile: Number,
