@@ -10,6 +10,7 @@ import {
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogin } from "state";
@@ -237,6 +238,24 @@ const Form = () => {
               helperText={touched.password && errors.password}
               sx={{ gridColumn: "span 4" }}
             />
+
+            {/* Forgot password link */}
+            {isLogin && (
+              <Typography
+              sx={{
+                textDecoration: "underline",
+                color: palette.primary.main,
+                "&:hover": {
+                  cursor: "pointer",
+                  color: palette.primary.light,
+                },
+              }}
+              >
+                <Link to="/forgot-password" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  Forgot Password?
+                </Link>
+              </Typography>
+            )}
           </Box>
 
           {/* BUTTONS */}
